@@ -1,4 +1,5 @@
 import { Todo } from './todo.js';
+import { TodoSerializer } from './todoSerializer.js';
 
 export class Project {
     constructor(name = 'Default Project') {
@@ -62,13 +63,13 @@ export class Project {
     toJSON() {
         return {
             name: this.name,
-            todos: this.todos.map(todo => todo.toJSON())
+            todos: this.todos.map(todo => TodoSerializer.toJSON(todo))
         };
     }
 
     static fromJSON(data) {
         const project = new Project(data.name);
-        project.todos = data.todos.map(todoData => Todo.fromJSON(todoData));
+        project.todos = data.todos.map(todoData => TodoSerializer.fromJSON(todoData));
         return project;
     }
 } 
